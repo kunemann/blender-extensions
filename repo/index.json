@@ -1,0 +1,118 @@
+{
+  "version": "v1",
+  "blocklist": [],
+  "data": [
+    {
+      "schema_version": "1.0.0",
+      "id": "renderbones",
+      "name": "RenderBones",
+      "tagline": "Convert custom and default bone shapes into renderable curves",
+      "version": "2.0.0",
+      "type": "add-on",
+      "maintainer": "kunemann (www.koen.work)",
+      "license": [
+        "SPDX:GPL-3.0-or-later"
+      ],
+      "blender_version_min": "4.2.0",
+      "website": "https://www.koen.work",
+      "copyright": [
+        "2025 kunemann"
+      ],
+      "tags": [
+        "Rigging",
+        "Render"
+      ],
+      "archive_url": "./renderbones-2.0.0.zip",
+      "archive_size": 10022,
+      "archive_hash": "sha256:a9e54c310820e5e861cd196c493dd6793c553d89836a16004f153a3bb088c125"
+    },
+    {
+      "schema_version": "1.0.0",
+      "id": "layercake",
+      "name": "LayerCake",
+      "tagline": "Rebuild the Combined image from render passes",
+      "version": "1.0.0",
+      "type": "add-on",
+      "maintainer": "kunemann <info@koen.work>",
+      "license": [
+        "SPDX:GPL-3.0-or-later"
+      ],
+      "blender_version_min": "4.2.0",
+      "website": "https://www.kunemann.com",
+      "copyright": [
+        "2026 kunemann"
+      ],
+      "tags": [
+        "Compositing",
+        "Render"
+      ],
+      "archive_url": "./layercake-1.0.0.zip",
+      "archive_size": 22186,
+      "archive_hash": "sha256:84b37381fc37c2787420bd8227f40e35e4a6fe820644b43943e35ab14dfeea04"
+    },
+    {
+      "schema_version": "1.0.0",
+      "id": "patchwork",
+      "name": "Patchwork",
+      "tagline": "Multi-pattern anti-tiling for image textures (Voronoi / Noise / Gabor / Blocks / Rings)",
+      "version": "0.2.1",
+      "type": "add-on",
+      "maintainer": "kunemann <www.kunemann.com>",
+      "license": [
+        "SPDX:MIT"
+      ],
+      "blender_version_min": "5.0.0",
+      "website": "https://www.kunemann.com",
+      "tags": [
+        "Material",
+        "Node"
+      ],
+      "archive_url": "./patchwork-0.2.1.zip",
+      "archive_size": 22138,
+      "archive_hash": "sha256:d0bc9ff5f8a3b2d1b08249af56954e029cb748ba5a0fa9f2fa27f519490d0204"
+    },
+    {
+      "schema_version": "1.0.0",
+      "id": "multi_range_renderer",
+      "name": "Multi Range Renderer",
+      "tagline": "Render multiple frame ranges with selected cameras",
+      "version": "1.2.0",
+      "type": "add-on",
+      "maintainer": "kunemann (www.koen.work)",
+      "license": [
+        "SPDX:MIT"
+      ],
+      "blender_version_min": "4.2.0",
+      "website": "https://www.koen.work",
+      "copyright": [
+        "2025 kunemann"
+      ],
+      "tags": [
+        "Render"
+      ],
+      "archive_url": "./multi_range_renderer-1.2.0.zip",
+      "archive_size": 4973,
+      "archive_hash": "sha256:a891aa3d7926a13a12b4ca2e45135a24e7de629cf253d43d46cbfc49a963bdd9"
+    },
+    {
+      "schema_version": "1.0.0",
+      "id": "exreplace",
+      "name": "EXReplace",
+      "tagline": "Swap Render Layer and multilayer EXR connections in the Compositor",
+      "version": "1.0.0",
+      "type": "add-on",
+      "maintainer": "kunemann (www.kunemann.com)",
+      "license": [
+        "SPDX:MIT"
+      ],
+      "blender_version_min": "4.5.0",
+      "tags": [
+        "Compositing",
+        "Node"
+      ],
+      "archive_url": "./exreplace-1.0.0.zip",
+      "archive_size": 5814,
+      "archive_hash": "sha256:f27ac3a6e4db0ce5a956577c1b6cc0a0a5668b9ce945f3c0c7f750bba351d642"
+    }
+  ]
+}
