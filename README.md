@@ -6,7 +6,7 @@ no running process — any static host works (GitHub Pages, Cloudflare Pages, yo
 website). Blender 4.2+ reads the `index.json` and lets users install & auto-update
 every add-on with one click.
 
-## What's inside `repo/`
+## What's inside `docs/`
 
 | File | Extension | Min. Blender |
 |------|-----------|--------------|
@@ -18,8 +18,20 @@ every add-on with one click.
 | `index.json` | repository index (generated — do not edit by hand) | |
 | `index.html` | human-readable listing (generated) | |
 
-Only the `repo/` folder gets published. Everything else (`build.sh`, `.build/`,
-this README) is for maintenance.
+Only the `docs/` folder gets published (GitHub Pages serves it). Everything else
+(`build.sh`, `.build/`, this README) is for maintenance and stays unpublished.
+
+## Hosting (GitHub Pages)
+
+This repo is published with **GitHub Pages → Branch `main`, folder `/docs`** (free).
+The public repository URL users enter in Blender is:
+
+```
+https://<your-github-user>.github.io/<repo-name>/index.json
+```
+
+A custom domain (e.g. `https://extensions.koen.work/index.json`) can be added later in
+the repo's **Settings → Pages → Custom domain**.
 
 ## How users install your add-ons
 
@@ -34,7 +46,7 @@ the "Extension" button on the koen.work add-ons page does — it points at one o
 
 ## Adding or updating an extension
 
-1. Drop the new/updated `.zip` into `repo/`. (For a new version, just add the new zip —
+1. Drop the new/updated `.zip` into `docs/`. (For a new version, just add the new zip —
    keep or remove the old one; Blender always offers the newest.)
 2. Run `./build.sh` — it rebuilds `index.json` (hashes, sizes, metadata) with Blender.
 3. Commit & push (or re-upload `repo/`). Users get the update automatically.
@@ -42,7 +54,7 @@ the "Extension" button on the koen.work add-ons page does — it points at one o
 Each extension `.zip` must contain a `blender_manifest.toml` **at its root**. A plain
 legacy add-on (a `.py` with `bl_info`) must be converted first — see `.build/` for how
 Multi Range Renderer was wrapped (rename the script to `__init__.py`, add a manifest,
-then `blender --command extension build --source-dir <dir> --output-dir repo`).
+then `blender --command extension build --source-dir <dir> --output-dir docs`).
 
 ## Not included
 
