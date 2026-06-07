@@ -1,0 +1,29 @@
+schema_version = "1.0.0"
+
+id = "copyrender"
+version = "1.2.0"
+name = "CopyRender"
+tagline = "Copy and paste render settings via clipboard"
+maintainer = "kunemann (www.koen.work)"
+type = "add-on"
+
+website = "https://www.koen.work"
+
+tags = ["Render"]
+
+blender_version_min = "4.2.0"
+
+license = ["SPDX:MIT"]
+
+copyright = [
+  "2025 kunemann",
+]
+
+[build]
+paths_exclude_pattern = [
+  "__pycache__/",
+  "*.pyc",
+  ".DS_Store",
+  "/.git/",
+  "/*.zip",
+]

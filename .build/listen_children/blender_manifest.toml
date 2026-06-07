@@ -1,0 +1,29 @@
+schema_version = "1.0.0"
+
+id = "listen_children"
+version = "1.5.0"
+name = "Listen, Children!"
+tagline = "Sync visibility between parent and child objects"
+maintainer = "kunemann (www.koen.work)"
+type = "add-on"
+
+website = "https://www.koen.work"
+
+tags = ["Object", "Animation"]
+
+blender_version_min = "4.2.0"
+
+license = ["SPDX:MIT"]
+
+copyright = [
+  "2024 kunemann",
+]
+
+[build]
+paths_exclude_pattern = [
+  "__pycache__/",
+  "*.pyc",
+  ".DS_Store",
+  "/.git/",
+  "/*.zip",
+]

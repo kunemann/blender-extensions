@@ -49,6 +49,30 @@
     },
     {
       "schema_version": "1.0.0",
+      "id": "listen_children",
+      "name": "Listen, Children!",
+      "tagline": "Sync visibility between parent and child objects",
+      "version": "1.5.0",
+      "type": "add-on",
+      "maintainer": "kunemann (www.koen.work)",
+      "license": [
+        "SPDX:MIT"
+      ],
+      "blender_version_min": "4.2.0",
+      "website": "https://www.koen.work",
+      "copyright": [
+        "2024 kunemann"
+      ],
+      "tags": [
+        "Object",
+        "Animation"
+      ],
+      "archive_url": "./listen_children-1.5.0.zip",
+      "archive_size": 2214,
+      "archive_hash": "sha256:e1b0f0004f027b485afb7afc27057b366ab7f8a438cf1bc8cdf457a959583344"
+    },
+    {
+      "schema_version": "1.0.0",
       "id": "multi_range_renderer",
       "name": "Multi Range Renderer",
       "tagline": "Render multiple frame ranges with selected cameras",
@@ -69,6 +93,29 @@
       "archive_url": "./multi_range_renderer-1.2.0.zip",
       "archive_size": 4973,
       "archive_hash": "sha256:a891aa3d7926a13a12b4ca2e45135a24e7de629cf253d43d46cbfc49a963bdd9"
+    },
+    {
+      "schema_version": "1.0.0",
+      "id": "copyrender",
+      "name": "CopyRender",
+      "tagline": "Copy and paste render settings via clipboard",
+      "version": "1.2.0",
+      "type": "add-on",
+      "maintainer": "kunemann (www.koen.work)",
+      "license": [
+        "SPDX:MIT"
+      ],
+      "blender_version_min": "4.2.0",
+      "website": "https://www.koen.work",
+      "copyright": [
+        "2025 kunemann"
+      ],
+      "tags": [
+        "Render"
+      ],
+      "archive_url": "./copyrender-1.2.0.zip",
+      "archive_size": 3379,
+      "archive_hash": "sha256:0791fa8a8b813bb6773487ab7a6558ed910b2978d7da8ae6a2fd2904826a2ba6"
     },
     {
       "schema_version": "1.0.0",

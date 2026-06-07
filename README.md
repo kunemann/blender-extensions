@@ -10,6 +10,8 @@ Extensions for Blender 4.2 and newer.
 | LayerCake | Rebuild the Combined image from render passes | 4.2 |
 | Patchwork | Multi-pattern anti-tiling for image textures (Voronoi / Noise / Gabor / Blocks / Rings) | 5.0 |
 | EXReplace | Swap Render Layer and multilayer EXR connections in the Compositor | 4.5 |
+| CopyRender | Copy and paste render settings via clipboard | 4.2 |
+| Listen, Children! | Sync visibility between parent and child objects | 4.2 |
 
 ## Install in Blender
 
