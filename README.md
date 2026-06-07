@@ -1,70 +1,70 @@
-# koen.work — Blender Extensions Repository
+# Blender Extensions Repository
 
-A **self-hosted Blender extensions repository**. It's just static files (the `.zip`
-extensions + a generated `index.json`) served over HTTPS. No server, no subscription,
-no running process — any static host works (GitHub Pages, Cloudflare Pages, your own
-website). Blender 4.2+ reads the `index.json` and lets users install & auto-update
-every add-on with one click.
+A free, self-hosted **Blender extensions repository** for Blender **4.2 and newer**.
 
-## What's inside `docs/`
+It is just a set of static files — the add-on `.zip` files plus a generated `index.json` —
+served over HTTPS via GitHub Pages. Blender reads `index.json` and can install and
+**auto-update** every add-on listed here with one click. No account, no server, no
+subscription.
 
-| File | Extension | Min. Blender |
-|------|-----------|--------------|
-| `multi_range_renderer-1.2.0.zip` | Multi Range Renderer | 4.2 |
-| `exreplace-1.0.0.zip` | EXReplace | 4.5 |
-| `layercake-1.0.0.zip` | LayerCake | 4.2 |
-| `patchwork-0.2.1.zip` | Patchwork | 5.0 |
-| `index.json` | repository index (generated — do not edit by hand) | |
-| `index.html` | human-readable listing (generated) | |
+## Add this repository to Blender
 
-Only the `docs/` folder gets published (GitHub Pages serves it). Everything else
-(`build.sh`, `.build/`, this README) is for maintenance and stays unpublished.
+1. In Blender open **Edit → Preferences → Get Extensions**.
+2. Top-right dropdown (⌄) → **Repositories** → **＋** → **Add Remote Repository**.
+3. Paste this URL and enable **Check for Updates on Startup**:
 
-## Hosting (GitHub Pages)
+   ```
+   https://kunemann.github.io/blender-extensions/index.json
+   ```
+4. Back in **Get Extensions** the add-ons below now appear — click **Install** on any of them.
+   Blender will keep them up to date automatically.
 
-This repo is published with **GitHub Pages → Branch `main`, folder `/docs`** (free).
-The public repository URL users enter in Blender is:
+### Or install a single add-on by drag-and-drop
+
+Drag an add-on's download link straight into a running Blender 4.2+ window. Blender
+installs and enables the add-on right away. Because the links published for this
+repository also carry the repository address, Blender additionally offers to add this
+repository on first drop — so even a one-off drag-and-drop install leaves Blender with
+everything it needs to keep the add-on (and the others here) updated.
+
+## Add-ons in this repository
+
+| Add-on | Description | Min. Blender | License |
+|--------|-------------|:------------:|---------|
+| **Multi Range Renderer** | Render multiple frame ranges with selected cameras | 4.2 | MIT |
+| **LayerCake** | Rebuild the Combined image from render passes | 4.2 | GPL-3.0-or-later |
+| **Patchwork** | Multi-pattern anti-tiling for image textures (Voronoi / Noise / Gabor / Blocks / Rings) | 5.0 | MIT |
+| **EXReplace** | Swap Render Layer and multilayer EXR connections in the Compositor | 4.5 | MIT |
+
+Each add-on's own license is declared inside its `blender_manifest.toml`. The repository
+as a whole is licensed **GPL-3.0** — see [`LICENSE`](LICENSE).
+
+## Repository layout
 
 ```
-https://<your-github-user>.github.io/<repo-name>/index.json
+docs/            # the published site — GitHub Pages serves this folder
+  *.zip          # one Blender extension per file
+  index.json     # the repository index Blender reads (generated — do not edit by hand)
+  index.html     # human-readable listing (generated)
+build.sh         # regenerates index.json + index.html from the zips
 ```
 
-A custom domain (e.g. `https://extensions.koen.work/index.json`) can be added later in
-the repo's **Settings → Pages → Custom domain**.
+Only `docs/` is published. Everything else (`build.sh`, this README) is for maintenance.
 
-## How users install your add-ons
+## Maintaining — adding or updating an extension
 
-1. In Blender: **Edit → Preferences → Get Extensions**.
-2. Top-right dropdown (⌄) → **Repositories** → **+** → **Add Remote Repository**.
-3. Paste the repository URL (ends in `/index.json`), e.g.
-   `https://<your-host>/index.json`. Enable **Check for Updates on Startup**.
-4. Back in **Get Extensions**, your add-ons now appear — click **Install**.
+1. Drop the new or updated `.zip` into `docs/`. Each zip must contain a
+   `blender_manifest.toml` at its root.
+2. Run `./build.sh` (auto-detects Blender, or `BLENDER=/path/to/blender ./build.sh`). It
+   re-reads every zip, recomputes hashes and sizes, and rewrites `index.json` + `index.html`.
+3. Commit and push. Anyone who has added the repository in Blender gets the update
+   automatically.
 
-They can also **drag a single `.zip` straight into Blender** to install it (this is what
-the "Extension" button on the koen.work add-ons page does — it points at one of these zips).
+A plain legacy add-on (a single `.py` with `bl_info`) must be wrapped into an extension
+first: rename the script to `__init__.py`, add a `blender_manifest.toml`, then run
+`blender --command extension build --source-dir <dir> --output-dir docs`.
 
-## Adding or updating an extension
+## Custom domain (optional)
 
-1. Drop the new/updated `.zip` into `docs/`. (For a new version, just add the new zip —
-   keep or remove the old one; Blender always offers the newest.)
-2. Run `./build.sh` — it rebuilds `index.json` (hashes, sizes, metadata) with Blender.
-3. Commit & push (or re-upload `repo/`). Users get the update automatically.
-
-Each extension `.zip` must contain a `blender_manifest.toml` **at its root**. A plain
-legacy add-on (a `.py` with `bl_info`) must be converted first — see `.build/` for how
-Multi Range Renderer was wrapped (rename the script to `__init__.py`, add a manifest,
-then `blender --command extension build --source-dir <dir> --output-dir docs`).
-
-## Not included
-
-- **CarbonicAcid_…blend** — a `.blend` asset, not an add-on. Asset files can't live in an
-  extensions repo; distribute it as a normal download instead.
-- **UV Packmaster** — a commercial third-party product (and it ships separate engine
-  binaries). Don't redistribute it here unless its license explicitly allows it.
-- **RenderBones** — distributed separately on Superhive Market, not redistributed here.
-
-## Regenerating from scratch
-
-```bash
-./build.sh        # auto-detects Blender, or: BLENDER=/path/to/blender ./build.sh
-```
+A custom domain (e.g. `https://extensions.example.com/index.json`) can be configured under
+the repository's **Settings → Pages → Custom domain**.
