@@ -14,7 +14,6 @@ every add-on with one click.
 | `exreplace-1.0.0.zip` | EXReplace | 4.5 |
 | `layercake-1.0.0.zip` | LayerCake | 4.2 |
 | `patchwork-0.2.1.zip` | Patchwork | 5.0 |
-| `renderbones-2.0.0.zip` | RenderBones | 4.2 |
 | `index.json` | repository index (generated — do not edit by hand) | |
 | `index.html` | human-readable listing (generated) | |
 
@@ -62,7 +61,7 @@ then `blender --command extension build --source-dir <dir> --output-dir docs`).
   extensions repo; distribute it as a normal download instead.
 - **UV Packmaster** — a commercial third-party product (and it ships separate engine
   binaries). Don't redistribute it here unless its license explicitly allows it.
-- **renderbones 1.2.2** — superseded by 2.0.0; only the latest is published.
+- **RenderBones** — distributed separately on Superhive Market, not redistributed here.
 
 ## Regenerating from scratch
 

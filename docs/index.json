@@ -4,30 +4,6 @@
   "data": [
     {
       "schema_version": "1.0.0",
-      "id": "renderbones",
-      "name": "RenderBones",
-      "tagline": "Convert custom and default bone shapes into renderable curves",
-      "version": "2.0.0",
-      "type": "add-on",
-      "maintainer": "kunemann (www.koen.work)",
-      "license": [
-        "SPDX:GPL-3.0-or-later"
-      ],
-      "blender_version_min": "4.2.0",
-      "website": "https://www.koen.work",
-      "copyright": [
-        "2025 kunemann"
-      ],
-      "tags": [
-        "Rigging",
-        "Render"
-      ],
-      "archive_url": "./renderbones-2.0.0.zip",
-      "archive_size": 10022,
-      "archive_hash": "sha256:a9e54c310820e5e861cd196c493dd6793c553d89836a16004f153a3bb088c125"
-    },
-    {
-      "schema_version": "1.0.0",
       "id": "layercake",
       "name": "LayerCake",
       "tagline": "Rebuild the Combined image from render passes",
