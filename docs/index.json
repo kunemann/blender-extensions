@@ -4,30 +4,6 @@
   "data": [
     {
       "schema_version": "1.0.0",
-      "id": "layercake",
-      "name": "LayerCake",
-      "tagline": "Rebuild the Combined image from render passes",
-      "version": "1.0.0",
-      "type": "add-on",
-      "maintainer": "kunemann <info@koen.work>",
-      "license": [
-        "SPDX:GPL-3.0-or-later"
-      ],
-      "blender_version_min": "4.2.0",
-      "website": "https://www.kunemann.com",
-      "copyright": [
-        "2026 kunemann"
-      ],
-      "tags": [
-        "Compositing",
-        "Render"
-      ],
-      "archive_url": "./layercake-1.0.0.zip",
-      "archive_size": 22186,
-      "archive_hash": "sha256:84b37381fc37c2787420bd8227f40e35e4a6fe820644b43943e35ab14dfeea04"
-    },
-    {
-      "schema_version": "1.0.0",
       "id": "patchwork",
       "name": "Patchwork",
       "tagline": "Multi-pattern anti-tiling for image textures (Voronoi / Noise / Gabor / Blocks / Rings)",
@@ -136,6 +112,30 @@
       "archive_url": "./exreplace-1.0.0.zip",
       "archive_size": 5814,
       "archive_hash": "sha256:f27ac3a6e4db0ce5a956577c1b6cc0a0a5668b9ce945f3c0c7f750bba351d642"
+    },
+    {
+      "schema_version": "1.0.0",
+      "id": "layercake",
+      "version": "1.1.0",
+      "name": "LayerCake",
+      "tagline": "Rebuild the Combined image from render passes",
+      "maintainer": "kunemann <info@koen.work>",
+      "type": "add-on",
+      "website": "https://www.kunemann.com",
+      "tags": [
+        "Compositing",
+        "Render"
+      ],
+      "blender_version_min": "4.2.0",
+      "license": [
+        "SPDX:GPL-3.0-or-later"
+      ],
+      "copyright": [
+        "2026 kunemann"
+      ],
+      "archive_url": "./layercake-1.1.0.zip",
+      "archive_size": 26804,
+      "archive_hash": "sha256:b6b1306509974bff81633f54e95f999478ca05f5a257e7b44ccd92bd681c6563"
     }
   ]
 }
