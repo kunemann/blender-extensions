@@ -140,7 +140,7 @@
     {
       "schema_version": "1.0.0",
       "id": "locknodes",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "name": "LockNodes",
       "tagline": "Password-lock node groups for preset pack distribution",
       "maintainer": "kunemann <info@koen.work>",
@@ -149,7 +149,8 @@
       "tags": [
         "Node",
         "Material",
-        "Compositing"
+        "Compositing",
+        "Geometry Nodes"
       ],
       "blender_version_min": "4.5.0",
       "license": [
@@ -158,9 +159,9 @@
       "copyright": [
         "2026 kunemann"
       ],
-      "archive_url": "./locknodes-1.0.0.zip",
-      "archive_size": 29922,
-      "archive_hash": "sha256:3d073655897887d3b8e463ab8f872fe3b89221cb66c9113294b2d22aed59df53"
+      "archive_url": "./locknodes-1.1.0.zip",
+      "archive_size": 30829,
+      "archive_hash": "sha256:64e3fb73305ca38eb915f6c261df2a17b532e2c8d4929d18f33cb9f3ae6c01e8"
     }
   ]
 }
