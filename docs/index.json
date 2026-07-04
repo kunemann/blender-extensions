@@ -136,6 +136,31 @@
       "archive_url": "./layercake-1.1.0.zip",
       "archive_size": 26804,
       "archive_hash": "sha256:b6b1306509974bff81633f54e95f999478ca05f5a257e7b44ccd92bd681c6563"
+    },
+    {
+      "schema_version": "1.0.0",
+      "id": "locknodes",
+      "version": "1.0.0",
+      "name": "LockNodes",
+      "tagline": "Password-lock node groups for preset pack distribution",
+      "maintainer": "kunemann <info@koen.work>",
+      "type": "add-on",
+      "website": "https://www.kunemann.com",
+      "tags": [
+        "Node",
+        "Material",
+        "Compositing"
+      ],
+      "blender_version_min": "4.5.0",
+      "license": [
+        "SPDX:GPL-3.0-or-later"
+      ],
+      "copyright": [
+        "2026 kunemann"
+      ],
+      "archive_url": "./locknodes-1.0.0.zip",
+      "archive_size": 29922,
+      "archive_hash": "sha256:3d073655897887d3b8e463ab8f872fe3b89221cb66c9113294b2d22aed59df53"
     }
   ]
 }
