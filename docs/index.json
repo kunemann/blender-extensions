@@ -72,29 +72,6 @@
     },
     {
       "schema_version": "1.0.0",
-      "id": "copyrender",
-      "name": "CopyRender",
-      "tagline": "Copy and paste render settings via clipboard",
-      "version": "1.2.0",
-      "type": "add-on",
-      "maintainer": "kunemann (www.koen.work)",
-      "license": [
-        "SPDX:MIT"
-      ],
-      "blender_version_min": "4.2.0",
-      "website": "https://www.koen.work",
-      "copyright": [
-        "2025 kunemann"
-      ],
-      "tags": [
-        "Render"
-      ],
-      "archive_url": "./copyrender-1.2.0.zip",
-      "archive_size": 3379,
-      "archive_hash": "sha256:0791fa8a8b813bb6773487ab7a6558ed910b2978d7da8ae6a2fd2904826a2ba6"
-    },
-    {
-      "schema_version": "1.0.0",
       "id": "exreplace",
       "name": "EXReplace",
       "tagline": "Swap Render Layer and multilayer EXR connections in the Compositor",
@@ -162,6 +139,29 @@
       "archive_url": "./locknodes-1.1.0.zip",
       "archive_size": 30829,
       "archive_hash": "sha256:64e3fb73305ca38eb915f6c261df2a17b532e2c8d4929d18f33cb9f3ae6c01e8"
+    },
+    {
+      "schema_version": "1.0.0",
+      "id": "copyrender",
+      "version": "1.3.0",
+      "name": "CopyRender",
+      "tagline": "Copy, paste and sync render settings via clipboard or file",
+      "maintainer": "kunemann (www.koen.work)",
+      "type": "add-on",
+      "website": "https://www.koen.work",
+      "tags": [
+        "Render"
+      ],
+      "blender_version_min": "4.2.0",
+      "license": [
+        "SPDX:MIT"
+      ],
+      "copyright": [
+        "2025 kunemann"
+      ],
+      "archive_url": "./copyrender-1.3.0.zip",
+      "archive_size": 4894,
+      "archive_hash": "sha256:f1a29eff2d3be0f55661864779eff69832d1392e47b4a4496f34d08d152407c2"
     }
   ]
 }
