@@ -2,10 +2,10 @@
 bl_info = {
     "name": "CopyRender",
     "author": "kunemann (www.koen.work)",
-    "version": (1, 2, 0),
+    "version": (1, 3, 1),
     "blender": (4, 0, 0),
     "location": "Properties > Render",
-    "description": "Copy and paste render settings via clipboard",
+    "description": "Copy, paste and sync render settings via clipboard or a shared file",
     "category": "Render",
 }
 
@@ -13,6 +13,8 @@ import bpy
 import json
 import sys
 import subprocess
+from bpy.app.handlers import persistent
+from bpy_extras.io_utils import ExportHelper, ImportHelper
 
 # ---------------------------
 # Clipboard helpers (cross-platform + macOS fallback)
@@ -56,6 +58,11 @@ def _get_clipboard(wm) -> str:
 _PRIMITIVE_PROP_TYPES = {'BOOLEAN', 'INT', 'FLOAT', 'STRING', 'ENUM'}
 _VECTOR_PROP_TYPES    = {'BOOLEAN_ARRAY', 'INT_ARRAY', 'FLOAT_ARRAY'}
 
+# Embedded sub-struct pointers we recurse into. These pointer properties are
+# themselves is_readonly=True (you cannot reassign scene.render.image_settings),
+# but their leaf values ARE writable. So pointers are gated by this allowlist
+# only -- NOT by is_readonly -- otherwise the whole file/video output block
+# (image_settings, ffmpeg, stereo_3d_format) is silently dropped.
 _ALLOWED_POINTERS_BY_ID = {
     'RenderSettings': {'image_settings', 'stereo_3d_format', 'ffmpeg'},
     'ColorManagedViewSettings': set(),
@@ -81,29 +88,29 @@ def _dump_rna(obj, visited=None):
         ident = prop.identifier
         if ident == "rna_type":
             continue
-        if getattr(prop, "is_readonly", False):
-            continue
         ptype = prop.type
 
         try:
-            if ptype in _PRIMITIVE_PROP_TYPES:
-                val = getattr(obj, ident)
-                if ptype == 'ENUM':
-                    data[ident] = str(val)
-                else:
-                    data[ident] = val
-            elif ptype in _VECTOR_PROP_TYPES:
-                val = getattr(obj, ident)
-                data[ident] = list(val)
-            elif ptype == 'POINTER':
-                allowed = _ALLOWED_POINTERS_BY_ID.get(rna_idname, set())
-                if ident in allowed:
+            if ptype == 'POINTER':
+                # gate pointers by allowlist, not is_readonly (see note above)
+                if ident in _ALLOWED_POINTERS_BY_ID.get(rna_idname, set()):
                     sub = getattr(obj, ident, None)
                     if sub is not None:
                         data[ident] = {
                             "__pointer_type__": sub.bl_rna.identifier,
-                            "data": _dump_rna(sub, visited)
+                            "data": _dump_rna(sub, visited),
                         }
+                continue
+
+            # non-pointer props: skip if we cannot write them back
+            if getattr(prop, "is_readonly", False):
+                continue
+
+            if ptype in _PRIMITIVE_PROP_TYPES:
+                val = getattr(obj, ident)
+                data[ident] = str(val) if ptype == 'ENUM' else val
+            elif ptype in _VECTOR_PROP_TYPES:
+                data[ident] = list(getattr(obj, ident))
         except Exception:
             pass
 
@@ -117,14 +124,19 @@ def _apply_rna(obj, data: dict):
     props_by_name = {p.identifier: p for p in rna.properties}
 
     for key, val in data.items():
-        if key in {"__type__"}:
+        if key == "__type__":
             continue
 
         prop = props_by_name.get(key)
-        if prop is None or getattr(prop, "is_readonly", False):
+        if prop is None:
             continue
 
         ptype = prop.type
+        # readonly guard applies to leaf props only; readonly pointers to
+        # embedded structs are still recursed into (their leaves are writable)
+        if ptype != 'POINTER' and getattr(prop, "is_readonly", False):
+            continue
+
         try:
             if ptype in _PRIMITIVE_PROP_TYPES:
                 if ptype == 'ENUM':
@@ -162,7 +174,7 @@ def _gather_scene_render_package(scene: bpy.types.Scene) -> dict:
 def _apply_scene_render_package(scene: bpy.types.Scene, pkg: dict, report=None):
     if not isinstance(pkg, dict) or pkg.get("__schema__") != "render_sync_v1":
         if report:
-            report({'WARNING'}, "Clipboard does not contain a valid render settings package.")
+            report({'WARNING'}, "Data does not contain a valid render settings package.")
         return
 
     engine = pkg.get("engine")
@@ -184,6 +196,18 @@ def _apply_scene_render_package(scene: bpy.types.Scene, pkg: dict, report=None):
         _apply_rna(scene.cycles, pkg["cycles"])
     if "eevee" in pkg and hasattr(scene, "eevee") and scene.eevee is not None:
         _apply_rna(scene.eevee, pkg["eevee"])
+
+# ---------------------------
+# File helpers (shared settings file)
+# ---------------------------
+
+def _write_package_file(path: str, pkg: dict):
+    with open(bpy.path.abspath(path), "w", encoding="utf-8") as f:
+        json.dump(pkg, f, indent=2, ensure_ascii=False, cls=BlenderJSONEncoder)
+
+def _read_package_file(path: str) -> dict:
+    with open(bpy.path.abspath(path), "r", encoding="utf-8") as f:
+        return json.load(f)
 
 # ---------------------------
 # JSON encoder fix
@@ -263,6 +287,81 @@ class COPYRENDER_OT_paste(bpy.types.Operator):
         _apply_scene_render_package(context.scene, pkg, report=self.report)
         return {'FINISHED'}
 
+class COPYRENDER_OT_save_file(bpy.types.Operator, ExportHelper):
+    bl_idname = "copyrender.save_file"
+    bl_label = "Save Settings to File"
+    bl_description = "Write this scene's render settings to a shared .json file other .blend files can link to"
+    bl_options = {'REGISTER'}
+    filename_ext = ".json"
+    filter_glob: bpy.props.StringProperty(default="*.json", options={'HIDDEN'})
+
+    def execute(self, context):
+        pkg = _gather_scene_render_package(context.scene)
+        try:
+            _write_package_file(self.filepath, pkg)
+        except Exception as e:
+            self.report({'WARNING'}, f"Could not write file: {e}")
+            return {'CANCELLED'}
+        self.report({'INFO'}, f"Render settings saved to {self.filepath}")
+        return {'FINISHED'}
+
+class COPYRENDER_OT_load_file(bpy.types.Operator, ImportHelper):
+    bl_idname = "copyrender.load_file"
+    bl_label = "Load & Link Settings File"
+    bl_description = "Apply render settings from a .json file and link it, so it re-applies every time this .blend is opened"
+    bl_options = {'REGISTER', 'UNDO'}
+    filename_ext = ".json"
+    filter_glob: bpy.props.StringProperty(default="*.json", options={'HIDDEN'})
+
+    def execute(self, context):
+        try:
+            pkg = _read_package_file(self.filepath)
+        except Exception as e:
+            self.report({'WARNING'}, f"Could not read file: {e}")
+            return {'CANCELLED'}
+        _apply_scene_render_package(context.scene, pkg, report=self.report)
+        context.scene.copyrender_link_path = self.filepath
+        self.report({'INFO'}, "Render settings loaded and linked.")
+        return {'FINISHED'}
+
+class COPYRENDER_OT_apply_link(bpy.types.Operator):
+    bl_idname = "copyrender.apply_link"
+    bl_label = "Apply Linked Settings Now"
+    bl_description = "Re-read the linked settings file and apply it without reopening the .blend"
+    bl_options = {'REGISTER', 'UNDO'}
+
+    @classmethod
+    def poll(cls, context):
+        return bool(context.scene and context.scene.copyrender_link_path)
+
+    def execute(self, context):
+        try:
+            pkg = _read_package_file(context.scene.copyrender_link_path)
+        except Exception as e:
+            self.report({'WARNING'}, f"Could not read linked file: {e}")
+            return {'CANCELLED'}
+        _apply_scene_render_package(context.scene, pkg, report=self.report)
+        self.report({'INFO'}, "Linked render settings applied.")
+        return {'FINISHED'}
+
+# ---------------------------
+# Handler: re-apply linked file on .blend open
+# ---------------------------
+
+@persistent
+def _copyrender_on_load(_dummy):
+    for scene in bpy.data.scenes:
+        path = getattr(scene, "copyrender_link_path", "")
+        if not path or not getattr(scene, "copyrender_auto_apply", False):
+            continue
+        try:
+            pkg = _read_package_file(path)
+        except Exception as e:
+            print(f"[CopyRender] Could not read linked settings '{path}': {e}")
+            continue
+        # ponytail: applying here marks the scene dirty on open; that's expected
+        _apply_scene_render_package(scene, pkg)
+
 # ---------------------------
 # Panel (in Render Properties)
 # ---------------------------
@@ -276,9 +375,21 @@ class COPYRENDER_PT_panel(bpy.types.Panel):
 
     def draw(self, context):
         layout = self.layout
+        scene = context.scene
+
         col = layout.column(align=True)
         col.operator("copyrender.copy", icon='COPYDOWN')
         col.operator("copyrender.paste", icon='PASTEDOWN')
+
+        box = layout.box()
+        box.label(text="Sync via File", icon='FILE_REFRESH')
+        row = box.row(align=True)
+        row.operator("copyrender.save_file", icon='EXPORT')
+        row.operator("copyrender.load_file", icon='IMPORT')
+        box.prop(scene, "copyrender_link_path", text="Linked")
+        row = box.row(align=True)
+        row.prop(scene, "copyrender_auto_apply")
+        row.operator("copyrender.apply_link", text="Apply Now", icon='FILE_REFRESH')
 
 # ---------------------------
 # Context menu integration (Right-click)
@@ -325,16 +436,35 @@ def _remove_menus():
 classes = (
     COPYRENDER_OT_copy,
     COPYRENDER_OT_paste,
+    COPYRENDER_OT_save_file,
+    COPYRENDER_OT_load_file,
+    COPYRENDER_OT_apply_link,
     COPYRENDER_PT_panel,
 )
 
 def register():
     for cls in classes:
         bpy.utils.register_class(cls)
+    bpy.types.Scene.copyrender_link_path = bpy.props.StringProperty(
+        name="Settings File",
+        description="External .json render-settings file to apply when this .blend is opened",
+        subtype='FILE_PATH',
+    )
+    bpy.types.Scene.copyrender_auto_apply = bpy.props.BoolProperty(
+        name="Apply on Open",
+        description="Re-apply the linked settings file every time this .blend file is opened",
+        default=True,
+    )
+    if _copyrender_on_load not in bpy.app.handlers.load_post:
+        bpy.app.handlers.load_post.append(_copyrender_on_load)
     _append_menus()
 
 def unregister():
     _remove_menus()
+    if _copyrender_on_load in bpy.app.handlers.load_post:
+        bpy.app.handlers.load_post.remove(_copyrender_on_load)
+    del bpy.types.Scene.copyrender_auto_apply
+    del bpy.types.Scene.copyrender_link_path
     for cls in reversed(classes):
         bpy.utils.unregister_class(cls)
 

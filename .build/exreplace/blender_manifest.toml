@@ -1,0 +1,14 @@
+schema_version = "1.0.0"
+
+id = "exreplace"
+version = "1.0.1"
+name = "EXReplace"
+tagline = "Swap Render Layer and EXR connections in the Compositor"
+maintainer = "kunemann (www.kunemann.com)"
+type = "add-on"
+
+blender_version_min = "4.5.0"
+
+license = ["SPDX:MIT"]
+
+tags = ["Compositing", "Node"]

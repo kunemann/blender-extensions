@@ -2,7 +2,7 @@
 bl_info = {
     "name": "Listen Children!",  # Removed exclamation mark and comma
     "author": "kunemann",
-    "version": (1, 5),
+    "version": (1, 5, 1),
     "blender": (4, 0, 0),
     "location": "View3D > N Panel > Listen Children",
     "description": "Synchronizes visibility between Parent and Child objects",

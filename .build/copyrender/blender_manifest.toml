@@ -1,9 +1,9 @@
 schema_version = "1.0.0"
 
 id = "copyrender"
-version = "1.2.0"
+version = "1.3.1"
 name = "CopyRender"
-tagline = "Copy and paste render settings via clipboard"
+tagline = "Copy, paste and sync render settings via clipboard or file"
 maintainer = "kunemann (www.koen.work)"
 type = "add-on"
 
