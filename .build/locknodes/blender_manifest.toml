@@ -1,0 +1,32 @@
+schema_version = "1.0.0"
+
+id = "locknodes"
+version = "1.1.1"
+name = "LockNodes"
+tagline = "Password-lock node groups for preset pack distribution"
+maintainer = "kunemann <info@koen.work>"
+type = "add-on"
+
+website = "https://www.kunemann.com"
+
+tags = ["Node", "Material", "Compositing", "Geometry Nodes"]
+
+blender_version_min = "4.5.0"
+
+license = [
+  "SPDX:GPL-3.0-or-later",
+]
+
+copyright = [
+  "2026 kunemann",
+]
+
+[build]
+paths_exclude_pattern = [
+  "__pycache__/",
+  "*.pyc",
+  "*.pyo",
+  ".DS_Store",
+  "/.git/",
+  "/*.zip",
+]

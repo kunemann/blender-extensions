@@ -1,7 +1,7 @@
 schema_version = "1.0.0"
 
 id = "multi_range_renderer"
-version = "1.2.0"
+version = "1.2.1"
 name = "Multi Range Renderer"
 tagline = "Render multiple frame ranges with selected cameras"
 maintainer = "kunemann (www.koen.work)"

@@ -1,0 +1,16 @@
+schema_version = "1.0.0"
+
+id = "patchwork"
+version = "0.2.2"
+name = "Patchwork"
+tagline = "Multi-pattern anti-tiling for image textures"
+maintainer = "kunemann <www.kunemann.com>"
+type = "add-on"
+
+website = "https://www.kunemann.com"
+
+tags = ["Material", "Node"]
+
+blender_version_min = "5.0.0"
+
+license = ["SPDX:MIT"]

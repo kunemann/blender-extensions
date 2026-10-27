@@ -2,7 +2,7 @@
 bl_info = {
     "name": "Multi Range Renderer",
     "author": "kunemann (www.koen.work)",
-    "version": (1, 2, 0),
+    "version": (1, 2, 1),
     "blender": (3, 0, 0),
     "location": "Render menu (TOPBAR) + Properties > Output > Multi Range Renderer (settings)",
     "description": "Render multiple frame ranges with selected cameras in the visible render window (sequential, modal).",

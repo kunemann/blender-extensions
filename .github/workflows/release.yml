@@ -1,0 +1,27 @@
+name: Release add-on
+
+# Push a tag like `patchwork-v0.2.2` to publish a GitHub Release for that
+# add-on. The zip is taken from docs/ and the notes from release-notes/<tag>.md.
+on:
+  push:
+    tags: ["*-v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          id="${TAG%-v*}"
+          version="${TAG##*-v}"
+          zip="docs/${id}-${version}.zip"
+          notes="release-notes/${TAG}.md"
+          test -f "$zip" || { echo "missing $zip"; exit 1; }
+          gh release create "$TAG" "$zip" --title "${id} ${version}" --notes-file "$notes"

@@ -6,8 +6,8 @@
       "schema_version": "1.0.0",
       "id": "patchwork",
       "name": "Patchwork",
-      "tagline": "Multi-pattern anti-tiling for image textures (Voronoi / Noise / Gabor / Blocks / Rings)",
-      "version": "0.2.1",
+      "tagline": "Multi-pattern anti-tiling for image textures",
+      "version": "0.2.2",
       "type": "add-on",
       "maintainer": "kunemann <www.kunemann.com>",
       "license": [
@@ -19,16 +19,16 @@
         "Material",
         "Node"
       ],
-      "archive_url": "./patchwork-0.2.1.zip",
-      "archive_size": 22138,
-      "archive_hash": "sha256:d0bc9ff5f8a3b2d1b08249af56954e029cb748ba5a0fa9f2fa27f519490d0204"
+      "archive_url": "./patchwork-0.2.2.zip",
+      "archive_size": 21910,
+      "archive_hash": "sha256:060fd60d5b78a79dcfb1baf5fcf070d031b082a78883e73c8225c6639ba19ed2"
     },
     {
       "schema_version": "1.0.0",
       "id": "listen_children",
       "name": "Listen, Children!",
       "tagline": "Sync visibility between parent and child objects",
-      "version": "1.5.0",
+      "version": "1.5.1",
       "type": "add-on",
       "maintainer": "kunemann (www.koen.work)",
       "license": [
@@ -43,16 +43,16 @@
         "Object",
         "Animation"
       ],
-      "archive_url": "./listen_children-1.5.0.zip",
-      "archive_size": 2214,
-      "archive_hash": "sha256:e1b0f0004f027b485afb7afc27057b366ab7f8a438cf1bc8cdf457a959583344"
+      "archive_url": "./listen_children-1.5.1.zip",
+      "archive_size": 2220,
+      "archive_hash": "sha256:20684e67bf42f572771cb8e551cf0d328dbb4820be63ac2bdb996e93ed9a1bcc"
     },
     {
       "schema_version": "1.0.0",
       "id": "multi_range_renderer",
       "name": "Multi Range Renderer",
       "tagline": "Render multiple frame ranges with selected cameras",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "type": "add-on",
       "maintainer": "kunemann (www.koen.work)",
       "license": [
@@ -66,16 +66,16 @@
       "tags": [
         "Render"
       ],
-      "archive_url": "./multi_range_renderer-1.2.0.zip",
-      "archive_size": 4973,
-      "archive_hash": "sha256:a891aa3d7926a13a12b4ca2e45135a24e7de629cf253d43d46cbfc49a963bdd9"
+      "archive_url": "./multi_range_renderer-1.2.1.zip",
+      "archive_size": 5011,
+      "archive_hash": "sha256:571e3c776efa1add29fd9f00a623cdc44471c2bc2314d3248fcbe893036c7092"
     },
     {
       "schema_version": "1.0.0",
       "id": "exreplace",
       "name": "EXReplace",
-      "tagline": "Swap Render Layer and multilayer EXR connections in the Compositor",
-      "version": "1.0.0",
+      "tagline": "Swap Render Layer and EXR connections in the Compositor",
+      "version": "1.0.1",
       "type": "add-on",
       "maintainer": "kunemann (www.kunemann.com)",
       "license": [
@@ -86,14 +86,14 @@
         "Compositing",
         "Node"
       ],
-      "archive_url": "./exreplace-1.0.0.zip",
-      "archive_size": 5814,
-      "archive_hash": "sha256:f27ac3a6e4db0ce5a956577c1b6cc0a0a5668b9ce945f3c0c7f750bba351d642"
+      "archive_url": "./exreplace-1.0.1.zip",
+      "archive_size": 5812,
+      "archive_hash": "sha256:006493a333aa2a1182c8da59f96d83034beabaecd0061112fb81be3a3dccdda1"
     },
     {
       "schema_version": "1.0.0",
       "id": "layercake",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "name": "LayerCake",
       "tagline": "Rebuild the Combined image from render passes",
       "maintainer": "kunemann <info@koen.work>",
@@ -110,14 +110,14 @@
       "copyright": [
         "2026 kunemann"
       ],
-      "archive_url": "./layercake-1.1.0.zip",
-      "archive_size": 26804,
-      "archive_hash": "sha256:b6b1306509974bff81633f54e95f999478ca05f5a257e7b44ccd92bd681c6563"
+      "archive_url": "./layercake-1.1.1.zip",
+      "archive_size": 26919,
+      "archive_hash": "sha256:a256fcaa6515a59389a85dabbecebe69a6bd9487132aabde9047d160f32ec896"
     },
     {
       "schema_version": "1.0.0",
       "id": "locknodes",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "name": "LockNodes",
       "tagline": "Password-lock node groups for preset pack distribution",
       "maintainer": "kunemann <info@koen.work>",
@@ -136,14 +136,14 @@
       "copyright": [
         "2026 kunemann"
       ],
-      "archive_url": "./locknodes-1.1.0.zip",
-      "archive_size": 30829,
-      "archive_hash": "sha256:64e3fb73305ca38eb915f6c261df2a17b532e2c8d4929d18f33cb9f3ae6c01e8"
+      "archive_url": "./locknodes-1.1.1.zip",
+      "archive_size": 30980,
+      "archive_hash": "sha256:5ce586ff313b386e07fc7484a1fdf96b6851ec856386b424d248e6c10366cf66"
     },
     {
       "schema_version": "1.0.0",
       "id": "copyrender",
-      "version": "1.3.0",
+      "version": "1.3.1",
       "name": "CopyRender",
       "tagline": "Copy, paste and sync render settings via clipboard or file",
       "maintainer": "kunemann (www.koen.work)",
@@ -159,9 +159,9 @@
       "copyright": [
         "2025 kunemann"
       ],
-      "archive_url": "./copyrender-1.3.0.zip",
-      "archive_size": 4894,
-      "archive_hash": "sha256:f1a29eff2d3be0f55661864779eff69832d1392e47b4a4496f34d08d152407c2"
+      "archive_url": "./copyrender-1.3.1.zip",
+      "archive_size": 4794,
+      "archive_hash": "sha256:58b9962623b55ebdb3a62554501dcdd042b3acc0479526e8ab410a9de3ee6956"
     }
   ]
 }
