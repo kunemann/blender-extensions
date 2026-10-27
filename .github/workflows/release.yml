@@ -1,8 +1,12 @@
-name: Release add-on
+name: Release add-ons
 
-# Push a tag like `patchwork-v0.2.2` to publish a GitHub Release for that
-# add-on. The zip is taken from docs/ and the notes from release-notes/<tag>.md.
+# Creates a GitHub Release (tag `<id>-v<version>`) for every add-on that has a
+# file in release-notes/ and does not have a release yet. The zip is taken from
+# docs/ and the notes from release-notes/<tag>.md.
+#   - Run manually: Actions -> Release add-ons -> Run workflow
+#   - Or push a single tag like `patchwork-v0.2.2`
 on:
+  workflow_dispatch:
   push:
     tags: ["*-v*"]
 
@@ -14,14 +18,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Create release
+      - name: Create releases
         env:
           GH_TOKEN: ${{ github.token }}
-          TAG: ${{ github.ref_name }}
         run: |
-          id="${TAG%-v*}"
-          version="${TAG##*-v}"
-          zip="docs/${id}-${version}.zip"
-          notes="release-notes/${TAG}.md"
-          test -f "$zip" || { echo "missing $zip"; exit 1; }
-          gh release create "$TAG" "$zip" --title "${id} ${version}" --notes-file "$notes"
+          if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
+            tags="${GITHUB_REF_NAME}"
+          else
+            tags="$(ls release-notes | sed 's/\.md$//')"
+          fi
+          for tag in $tags; do
+            id="${tag%-v*}"
+            version="${tag##*-v}"
+            zip="docs/${id}-${version}.zip"
+            test -f "$zip" || { echo "missing $zip"; exit 1; }
+            if gh release view "$tag" >/dev/null 2>&1; then
+              echo "$tag already released"; continue
+            fi
+            gh release create "$tag" "$zip" --target "$GITHUB_SHA" \
+              --title "${id} ${version}" --notes-file "release-notes/${tag}.md"
+          done
